@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  node1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 4namenode
+    hostname: 4namenode
+    ports:
+      - "2221:22"
+    networks:
+      - cluster_network
+    volumes:
+      - 4node1_data:/data
+
+  node2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 4SNN
+    hostname: 4SNN
+    ports:
+      - "2222:22"
+    networks:
+      - cluster_network
+    volumes:
+      - 4node2_data:/data
+
+  node3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 4DataNode1
+    hostname: 4DataNode1
+    ports:
+      - "2223:22"
+    networks:
+      - cluster_network
+    volumes:
+      - 4node3_data:/data
+
+  node4:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 4DataNode2
+    hostname: 4DataNode2
+    ports:
+      - "2224:22"
+    networks:
+      - cluster_network
+    volumes:
+      - 4node4_data:/data
+
+networks:
+  cluster_network:
+    driver: bridge
+
+volumes:
+  4node1_data:
+  4node2_data:
+  4node3_data:
+  4node4_data:
